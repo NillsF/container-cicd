@@ -9,6 +9,9 @@ on:
 
   workflow_dispatch:
   
+permissions:
+      id-token: write
+      contents: read
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -20,7 +23,9 @@ jobs:
       - name: az CLI login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+            client-id: ${{ secrets.AZURE_CLIENT_ID }}
+            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
       - name: ACR login
         run: az acr login -n nfacr
@@ -39,12 +44,16 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-      - name: Azure Kubernetes set context
-        uses: Azure/aks-set-context@v1.1
+      - uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }} 
-          resource-group: lrtf
-          cluster-name: lrtf
+           client-id: ${{ secrets.AZURE_CLIENT_ID }}
+           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - uses: azure/aks-set-context@v3
+        with:
+           resource-group: lrtf
+           cluster-name: lrtf
 
       - name: Update deployment
         run: sed -i 's|nfacr.azurecr.io/spark-cd:.*|nfacr.azurecr.io/kubeclub-cd:${{ github.run_number }}|gi' 2_container_ci-cd-kubernetes/deployment.yaml
