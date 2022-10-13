@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: python-deployment-pipeline
-  namespace: python-flux
+  namespace: python-argo
   labels:
     app: python-demo-cd
 spec:
