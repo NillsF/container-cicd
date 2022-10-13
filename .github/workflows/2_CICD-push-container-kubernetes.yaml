@@ -43,8 +43,8 @@ jobs:
         uses: Azure/aks-set-context@v1.1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }} 
-          resource-group: kubeclub
-          cluster-name: kubeclub
+          resource-group: lrtf
+          cluster-name: lrtf
 
       - name: Update deployment
         run: sed -i 's|nfacr.azurecr.io/spark-cd:.*|nfacr.azurecr.io/kubeclub-cd:${{ github.run_number }}|gi' 2_container_ci-cd-kubernetes/deployment.yaml
