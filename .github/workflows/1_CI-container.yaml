@@ -8,7 +8,9 @@ on:
     - .github/workflows/1_CI-container.yaml
 
   workflow_dispatch:
-  
+permissions:
+  id-token: write
+  contents: read
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -20,7 +22,9 @@ jobs:
       - name: az CLI login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+            client-id: ${{ secrets.AZURE_CLIENT_ID }}
+            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
       - name: ACR login
         run: az acr login -n nfacr
