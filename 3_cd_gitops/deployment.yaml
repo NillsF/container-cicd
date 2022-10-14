@@ -6,7 +6,7 @@ metadata:
   labels:
     app: python-demo-cd
 spec:
-  replicas: 3
+  replicas: 6
   selector:
     matchLabels:
       app: python-demo-cd
