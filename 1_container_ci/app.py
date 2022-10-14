@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return "Hello Little Rock!!"
+    return "Hello Little Rock through CI!!"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8001, debug=True)
