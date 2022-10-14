@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: python-demo-cd
-        image: nfacr.azurecr.io/kubeclub-ci:18
+        image: nfacr.azurecr.io/kubeclub-cd:23
         ports:
         - containerPort: 8001
