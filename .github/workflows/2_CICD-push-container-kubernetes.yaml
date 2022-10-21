@@ -54,6 +54,7 @@ jobs:
         with:
            resource-group: denver-cicd
            cluster-name: denver-cicd
+           admin: 'true'
 
       - name: Update deployment
         run: sed -i 's|nfacr.azurecr.io/spark-cd:.*|nfacr.azurecr.io/kubeclub-cd:${{ github.run_number }}|gi' 2_container_ci-cd-kubernetes/deployment.yaml
